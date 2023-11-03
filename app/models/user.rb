@@ -7,6 +7,10 @@ class User < ApplicationRecord
 	has_many :organizations, through: :memberships
 
 	before_validation :strip_extraneous_spaces
+
+	has_secure_password
+	validates :password, presence: true, length: {minimum: 8, maximum: ActiveModel::SecurePassword::MAX_PASSWORD_LENGTH_ALLOWED}
+
 	private
 
 		def strip_extraneous_spaces
