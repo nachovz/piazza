@@ -53,6 +53,35 @@ class UserTest < ActiveSupport::TestCase
 
     @user.password_confirmation = "password"
     assert @user.valid?
-    
+  end
+
+  # AUTHENTICATION
+
+  test "can create a session with email and correct password" do
+    @app_session = User.create_app_session(
+      email: "jerry@example.com",
+      password: "password"
+    )
+
+    assert_not_nil @app_session
+    assert_not_nil @app_session.token
+  end
+
+  test "cannot create a session with email and incorrect password" do
+    @app_session = User.create_app_session(
+      email: "jerry@example.com",
+      password: "WRONG"
+    )
+
+    assert_nil @app_session
+  end
+
+  test "creating a session with non existent email returns nil" do
+    @app_session = User.create_app_session(
+      email: "doesnt@exist.com",
+      password: "password"
+    )
+
+    assert_nil @app_session
   end
 end
