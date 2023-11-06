@@ -84,4 +84,17 @@ class UserTest < ActiveSupport::TestCase
 
     assert_nil @app_session
   end
+
+  test "can authenticate with a valid session id and token" do
+    @user = users(:jerry)
+    @app_session = @user.app_sessions.create
+
+    assert_equal @app_session, @user.authenticate_app_session(@app_session.id, @app_session.token)
+  end
+
+  test "trying to authenticate with a token that doesn't exist returns false" do
+    @user = users(:jerry)
+
+    assert_not @user.authenticate_app_session(50, "WRONG")
+  end
 end
