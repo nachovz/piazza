@@ -46,4 +46,13 @@ class UserTest < ActiveSupport::TestCase
     @user.password = "a" * (max_length + 1)
     assert_not @user.valid?
   end
+
+  test "password confirmation must match password" do
+    @user = User.new(name: "John", email: "email@email.com", password: "password", password_confirmation: "passw12345")
+    assert_not @user.valid?
+
+    @user.password_confirmation = "password"
+    assert @user.valid?
+    
+  end
 end

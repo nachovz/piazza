@@ -10,6 +10,7 @@ class User < ApplicationRecord
 
 	has_secure_password
 	validates :password, presence: true, length: {minimum: 8, maximum: ActiveModel::SecurePassword::MAX_PASSWORD_LENGTH_ALLOWED}
+	validates :password, confirmation: {case_sensitive: true}
 
 	private
 
