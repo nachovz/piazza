@@ -17,5 +17,6 @@ module ActiveSupport
 end
 
 class ActionDispatch::IntegrationTest
+  include AuthenticationHelpers
   include RoutesHelpers
 end
