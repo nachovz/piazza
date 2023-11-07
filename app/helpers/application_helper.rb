@@ -1,8 +1,8 @@
 module ApplicationHelper
+  def title
+    return t("piazza") unless content_for?(:title)
+    return content_for(:title) if turbo_native_app?
 
-	def title
-		return t("piazza") unless content_for?(:title)
-
-		"#{content_for(:title)} | #{t("piazza")}"
-	end
+    "#{content_for(:title)} | #{t("piazza")}"
+  end
 end
