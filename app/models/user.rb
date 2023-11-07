@@ -1,8 +1,13 @@
 class User < ApplicationRecord
   include Authentication
 
-  validates :name, presence: true
-  validates :email, format: {with: URI::MailTo::EMAIL_REGEXP}, uniqueness: true
+  validates :name,
+    on: [:create],
+    presence: true
+  validates :email,
+    on: [:create],
+    format: {with: URI::MailTo::EMAIL_REGEXP},
+    uniqueness: true
 
   has_many :memberships, dependent: :destroy
   has_many :organizations, through: :memberships

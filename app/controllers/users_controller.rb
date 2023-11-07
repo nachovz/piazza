@@ -19,6 +19,10 @@ class UsersController < ApplicationController
     end
   end
 
+  def show
+    @user = Current.user
+  end
+
   def update
     @user = Current.user
 
