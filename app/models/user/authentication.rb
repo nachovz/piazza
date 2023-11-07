@@ -3,8 +3,13 @@ module User::Authentication
 
   included do
     has_secure_password
-    validates :password, presence: true, length: {minimum: 8, maximum: ActiveModel::SecurePassword::MAX_PASSWORD_LENGTH_ALLOWED}
-    validates :password, confirmation: {case_sensitive: true}
+    validates :password, 
+      on: [:create, :password_change],
+      presence: true,
+      length: {minimum: 8, maximum: ActiveModel::SecurePassword::MAX_PASSWORD_LENGTH_ALLOWED}
+    validates :password, 
+      on: [:create, :password_change],
+      confirmation: {case_sensitive: true}
 
     has_many :app_sessions
   end
